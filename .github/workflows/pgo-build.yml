@@ -252,7 +252,7 @@ jobs:
       with:
         path: SolLevante
         ref: sollevante
-    - run: xz --decompress SolLevante/SolLevante.y4m.xz
+    - run: sudo sysctl kernel.perf_event_paranoid=-1 && perf stat -- xz --decompress SolLevante/SolLevante.y4m.xz
     - uses: ilammy/setup-nasm@v1
     - uses: ZhongRuoyu/setup-llvm@v0
     # - id: build-avx512
@@ -282,9 +282,7 @@ jobs:
     #   if: ${{ steps.build-znver2.outcome != 'failure' }}
     # - run: Build/linux/build.sh --clean
     - run: CFLAGS="-flto=full -march=x86-64-v3 -mtune=x86-64 -mno-gather -fno-exceptions -fno-rtti -DNDEBUG" CPPFLAGS="-flto=full -march=x86-64-v3 -mtune=x86-64 -mno-gather -fno-exceptions -fno-rtti -DNDEBUG" LDFLAGS="-fuse-ld=lld -flto=full" Build/linux/build.sh --verbose --static --release --disable-native --enable-avx512 --disable-lto --enable-pgo --pgo-videos="$(realpath SolLevante)"
-    - run: sudo sysctl kernel.perf_event_paranoid=2 && perf stat -- Bin/Release/SvtAv1EncApp -i SolLevante/SolLevante.y4m -b test.ivf --preset 4 --crf 20.00 --lineart-psy-bias 5 --texture-psy-bias 5
-    - run: sudo sysctl kernel.perf_event_paranoid=1 && perf stat -- Bin/Release/SvtAv1EncApp -i SolLevante/SolLevante.y4m -b test.ivf --preset 4 --crf 20.00 --lineart-psy-bias 5 --texture-psy-bias 5
-    - run: sudo sysctl kernel.perf_event_paranoid=0 && perf stat -- Bin/Release/SvtAv1EncApp -i SolLevante/SolLevante.y4m -b test.ivf --preset 4 --crf 20.00 --lineart-psy-bias 5 --texture-psy-bias 5
+    - run: sudo sysctl kernel.perf_event_paranoid=-1 && perf stat -- Bin/Release/SvtAv1EncApp -i SolLevante/SolLevante.y4m -b test.ivf --preset 4 --crf 20.00 --lineart-psy-bias 5 --texture-psy-bias 5
     - run: cd Bin/Release && tar cJf Linux_x86-64_x86-64-v3.tar.xz SvtAv1EncApp && cd ../..
     - uses: softprops/action-gh-release@v3
       with:
