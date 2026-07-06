@@ -57,7 +57,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7
 
-    - uses: Akatmks/build-svt-av1@v1
+    - uses: Akatmks/build-svt-av1@release-test
       with:
         pgo-video: "SolLevante"
         pgo-parameters: "--crf 20.00 --lineart-psy-bias 5 --texture-psy-bias 5"
