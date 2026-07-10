@@ -62,7 +62,7 @@ jobs:
         pgo-video: "SolLevante"
         pgo-parameters: "--crf 20.00 --lineart-psy-bias 5 --texture-psy-bias 5"
 
-        base-arc-only: "true"
+        base-arch-only: "true"
 
     - id: detect-icelake-server-znver5
       run: ls BuildAction/icelake-server+znver5/static/SvtAv1EncApp.exe
